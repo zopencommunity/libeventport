@@ -1,0 +1,15 @@
+diff --git a/evutil.c b/evutil.c
+index 9817f08..c0da9c3 100644
+--- a/evutil.c
++++ b/evutil.c
+@@ -106,6 +106,10 @@
+ #define mode_t int
+ #endif
+ 
++#ifdef __MVS__
++#undef EVENT__HAVE_GETIFADDRS 
++#endif
++
+ int
+ evutil_open_closeonexec_(const char *pathname, int flags, unsigned mode)
+ {

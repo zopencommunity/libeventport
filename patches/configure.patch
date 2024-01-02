@@ -1,0 +1,50 @@
+diff --git a/configure b/configure
+index f43e2f2..ba7632a 100755
+--- a/configure
++++ b/configure
+@@ -2690,7 +2690,7 @@ fi
+ ## -------------------- ##
+ 
+ ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
++ac_cpp='$CPP $CFLAGS $CPPFLAGS'
+ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+@@ -6192,6 +6192,10 @@ aix[4-9]*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
++openedition*)
++  lt_cv_deplibs_check_method=pass_all
++  ;;
++
+ beos*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+@@ -13656,7 +13660,7 @@ case "$enable_openssl" in
+ 	save_LIBS="$LIBS"
+ 	LIBS=""
+ 	OPENSSL_LIBS=""
+-	for lib in crypto eay32; do
++	for lib in crypto; do
+ 		# clear cache
+ 		unset ac_cv_search_SSL_new
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing SSL_new" >&5
+@@ -13724,7 +13728,7 @@ fi
+ 	;;
+     esac
+     CPPFLAGS_SAVE=$CPPFLAGS
+-    CPPFLAGS="$CPPFLAGS $OPENSSL_INCS"
++    CPPFLAGS="$CFLAGS $CPPFLAGS $OPENSSL_INCS"
+     for ac_header in openssl/ssl.h
+ do :
+   ac_fn_c_check_header_mongrel "$LINENO" "openssl/ssl.h" "ac_cv_header_openssl_ssl_h" "$ac_includes_default"
+@@ -13733,6 +13737,7 @@ if test "x$ac_cv_header_openssl_ssl_h" = xyes; then :
+ #define HAVE_OPENSSL_SSL_H 1
+ _ACEOF
+ 
++  have_openssl=yes
+ else
+   have_openssl=no
+ fi

@@ -1,0 +1,34 @@
+export ZOPEN_STABLE_URL="https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz"
+export ZOPEN_STABLE_DEPS="make zoslib cmake coreutils openssl zlib"
+export ZOPEN_DEV_URL="https://github.com/libevent/libevent.git"
+export ZOPEN_DEV_DEPS="zoslib make cmake openssl zlib"
+export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_CATEGORIES="development"
+export ZOPEN_COMP=CLANG
+
+export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
+
+zopen_init()
+{
+  export CPPFLAGS="$CFLAGS $CPPFLAGS"
+}
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+
+  # Echo the following information to gauge build health
+  echo "actualFailures:0"
+  echo "totalTests:1"
+  echo "expectedFailures:0"
+  echo "expectedTotalTests:1"
+}
+
+zopen_get_version()
+{
+  # Modify to echo the version of your tool/library
+  # Rather than hardcoding the version, obtain the version by running the tool/library
+  echo "1.0.0"
+}

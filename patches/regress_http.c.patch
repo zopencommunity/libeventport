@@ -1,0 +1,22 @@
+diff --git a/test/regress_http.c b/test/regress_http.c
+index 4493907..d927d4f 100644
+--- a/test/regress_http.c
++++ b/test/regress_http.c
+@@ -714,7 +714,7 @@ http_bad_request_test(void *arg)
+ 	bufferevent_write(bev, http_request, strlen(http_request));
+ 
+ 	shutdown(fd, EVUTIL_SHUT_WR);
+-	timerclear(&tv);
++	evutil_timerclear(&tv);
+ 	tv.tv_usec = 10000;
+ 	event_base_once(data->base, -1, EV_TIMEOUT, http_badreq_successcb, bev, &tv);
+ 
+@@ -748,7 +748,7 @@ http_bad_request_test(void *arg)
+ 
+ 	bufferevent_write(bev, http_request, strlen(http_request));
+ 
+-	timerclear(&tv);
++	evutil_timerclear(&tv);
+ 	tv.tv_usec = 10000;
+ 	event_base_once(data->base, -1, EV_TIMEOUT, http_badreq_successcb, bev, &tv);
+ 
