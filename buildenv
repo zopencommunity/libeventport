@@ -8,9 +8,9 @@ export ZOPEN_COMP=CLANG
 
 export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
 
-zopen_init()
+zopen_pre_patch()
 {
-  export CPPFLAGS="$CFLAGS $CPPFLAGS"
+  export CFLAGS="$CFLAGS $CPPFLAGS"
 }
 
 zopen_append_to_env()
