@@ -1,0 +1,40 @@
+diff --git a/buffer.c b/buffer.c
+index 3524b35..29363df 100644
+--- a/buffer.c
++++ b/buffer.c
+@@ -2172,7 +2172,7 @@ evbuffer_expand(struct evbuffer *buf, size_t datlen)
+  * Reads data from a file descriptor into a buffer.
+  */
+ 
+-#if defined(EVENT__HAVE_SYS_UIO_H) || defined(_WIN32)
++#if (defined(EVENT__HAVE_SYS_UIO_H) || defined(_WIN32)) && !defined(__MVS__)
+ #define USE_IOVEC_IMPL
+ #endif
+ 
+@@ -2411,6 +2411,26 @@ done:
+ 	return result;
+ }
+ 
++ssize_t my_writev(int fd, const struct iovec *iov, int iovcnt) {
++    if (isatty(fd)) {
++    ssize_t total_bytes_written = 0;
++
++    // Iterate over each iovec structure
++    for (int i = 0; i < iovcnt; i++) {
++        ssize_t bytes_written = write(fd, iov[i].iov_base, iov[i].iov_len);
++        if (bytes_written == -1) {
++            // Error occurred
++            return -1;
++        }
++        total_bytes_written += bytes_written;
++    }
++
++    return total_bytes_written;
++  } else {
++  writev(fd, iov, iovcnt);
++}
++}
++
+ #ifdef USE_IOVEC_IMPL
+ static inline int
+ evbuffer_write_iovec(struct evbuffer *buffer, evutil_socket_t fd,
